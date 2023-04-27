@@ -7,31 +7,137 @@
 // Example: 5! = 5 x 4 x 3 x 2 x 1 = 120
 // factorial(5); // 120
 var factorial = function(n) {
+  var result = 1;
+
+  if (n < 0) {
+      return null;
+  } else if (n === 0) {
+      return result;
+  } else {
+      return result = n * factorial(n - 1);
+  }
 };
 
 // 2. Compute the sum of an array of integers.
 // sum([1,2,3,4,5,6]); // 21
+// 1. IOCE
+// Inputs: array
+// Outputs: number
+// Constraints
+// Edge Cases: Empty array (returns 0)
+
+
 var sum = function(array) {
+  var result = 0;
+
+  if (array.length === 0) {
+      return 0;
+  } else if (array.length === 1) {
+      return array[0];
+  } else {
+      return result += array[0] + sum(array.slice(1));
+  }
+
 };
 
 // 3. Sum all numbers in an array containing nested arrays.
 // arraySum([1,[2,3],[[4]],5]); // 15
+//
+// 1.IOCE
+// INPUT: array
+// OUPUT: number
+// CONSTRAINTS: none
+// EDGE CASES: return 0 for empty array
+// 2.STRATEGY
+// Iterate over each element
+  // if array
+    // call function on element
+// else
+    // add element value to result
+//
+//
 var arraySum = function(array) {
+  var result = 0;
+
+  if (array.length === 0) {
+      return 0;
+  }
+
+  array.forEach(function(element) {
+      if (Array.isArray(element)) {
+          result += arraySum(element);
+      } else {
+          result += element;
+      }
+  })
+
+  return result;
+
 };
 
 // 4. Check if a number is even.
+// 1.IOCE
+// INPUTS: number
+// OUTPUTS: boolean
+// CONSTRAINTS:
+// EDGE CASES: zero is true
+// 2.STRATEGY
+// subtract 2 from abs of n
+// once n < 2, if it's greater than 1, odd
+// else even
+//
 var isEven = function(n) {
+  if (Math.abs(n) === 0) {
+    return true;
+  } else if (Math.abs(n) >= 2) {
+    return isEven(Math.abs(n) - 2)
+  } else {
+    return false;
+  }
 };
 
 // 5. Sum all integers below a given integer.
 // sumBelow(10); // 45
 // sumBelow(7); // 21
+//
+// 1.IOCE
+// Inputs: number
+// Ouputs: number (sum)
+// Constraints: n/a
+// Edge Cases: n/a
+// 2. Strategy
+// Recursively call sumBelow on n-1 if n is positive, n+1 if n is negative
+//
+//
 var sumBelow = function(n) {
+  // declare sum variable, set to 0
+  var sum = 0;
+
+  if (n < 0) {
+    return sum = (n + 1) + sumBelow(n + 1);
+  } else if (n > 0) {
+    return sum = (n - 1) + sumBelow(n - 1);
+  } else {
+    return sum;
+  }
 };
 
 // 6. Get the integers within a range (x, y).
 // range(2,9); // [3,4,5,6,7,8]
 var range = function(x, y) {
+  var result = [];
+
+  if (y === undefined) {
+    return [];
+  } else if (Math.abs(y - x) === 1) {
+    return result;
+  } else if (x < y) {
+    result = result.concat(x + 1).concat(range(x + 1, y));
+  } else if (x > y) {
+    result = result.concat(x - 1).concat(range(x - 1, y));
+  }
+
+  return result;
 };
 
 // 7. Compute the exponent of a number.
@@ -39,22 +145,96 @@ var range = function(x, y) {
 // 8^2 = 8 x 8 = 64. Here, 8 is the base and 2 is the exponent.
 // exponent(4,3); // 64
 // https://www.khanacademy.org/computing/computer-science/algorithms/recursive-algorithms/a/computing-powers-of-a-number
+//
+// 1.IOCE
+// INPUT: number, number
+// OUTPUT: number
+// CONSTRAINTS: n/a
+// EDGE CASES: returns 1 if exponent is 0
+// 2.STRATEGY
+// declare result value
+// add base number exp times to result value
+//
+//
 var exponent = function(base, exp) {
+  if (exp === 0) {
+    return 1;
+  } else if (exp === 1) {
+    return base;
+  } else if (exp > 0) {
+    return base * exponent(base, exp - 1);
+  } else {
+    exp = exp * -1;
+    return 1 / (base * exponent(base, exp - 1));
+  }
 };
 
 // 8. Determine if a number is a power of two.
 // powerOfTwo(1); // true
 // powerOfTwo(16); // true
 // powerOfTwo(10); // false
+// 1.IOCE
+// Inputs: number
+// Output: boolean
+// Constraints: n/a
+// Edge Cases: n/a
+// 2.Strategy
+// divide n by two recursively
+//
 var powerOfTwo = function(n) {
+  if (n === 1) {
+    return true;
+  } else if (n < 2) {
+    return false;
+  } else {
+    return powerOfTwo(n / 2);
+  }
 };
 
 // 9. Write a function that reverses a string.
+// 1.IOCE
+// INPUT: string
+// OUTPUT: string
+// CONSTRAINTS: n/a
+// EDGE CASE: ignore spaces and capital letters
+// 2.STRATEGY
+// create result string
+//
+// base case, if string length === 1 then return string
+// else
+  // string = reverse(string.slice(0, string.length - 1)) + string;
+//
 var reverse = function(string) {
+  if (string.length === 1) {
+    return string;
+  } else {
+    return string[string.length - 1] + reverse(string.slice(0, string.length - 1));
+  }
 };
 
 // 10. Write a function that determines if a string is a palindrome.
+// 1.IOCE
+// INPUT: string
+// OUTPUT: boolean
+// CONSTRAINTS:
+// EDGE CASES:
+// 2. STRATEGY
+// when base case is met should check if result string matches input string
+//
+//
+//
+//
 var palindrome = function(string) {
+  string = string.toLowerCase().split(' ').join('');
+  if (string.length === 1) {
+    return true;
+  } else if (string.length === 2 && string[0] === string[1]) {
+    return true;
+  } else if (string[0] === string[string.length - 1]) {
+    return palindrome(string.slice(1, string.length - 1));
+  } else {
+    return false;
+  }
 };
 
 // 11. Write a function that returns the remainder of x divided by y without using the
@@ -135,12 +315,69 @@ var countKeysInObj = function(obj, key) {
 // var obj = {'e':{'x':'y'},'t':{'r':{'e':'r'},'p':{'y':'r'}},'y':'e'};
 // countValuesInObj(obj, 'r') // 2
 // countValuesInObj(obj, 'e') // 1
+//
+// 1.IOCE
+// Inputs: object
+// Output: number
+// Constraints: n/a
+// Edge Cases: n/a
+// 2.STRATEGY
+// create result variable, number
+//
+// iterate through object
+  // if element is object
+    // call recursive function
+  // else if value = target
+      // count++
+//
+// return count
+
 var countValuesInObj = function(obj, value) {
+  var count = 0;
+
+  for (var key in obj) {
+    if (typeof obj[key] === 'object') {
+      count += countValuesInObj(obj[key], value);
+    } else if (obj[key] === value) {
+      count++;
+    }
+  }
+
+  return count;
 };
 
 // 24. Find all keys in an object (and nested objects) by a provided name and rename
 // them to a provided new name while preserving the value stored at that key.
+// 1.IOCE
+// INPUT: object, string, string
+// OUTPUT: object
+// CONSTRAINTS: n/a
+// EDGE CASES: n/a
+// 2.STRATEGY
+//
+// iterate through input object
+  // if key === oldkey
+    // update to new key
+
+  // if value === object
+    // cal recursive function with obj[key] and old and new key strings
+//
+// return object
+//
 var replaceKeysInObj = function(obj, oldKey, newKey) {
+
+  for (var key in obj) {
+    if (typeof obj[key] === 'object') {
+      obj[key] = replaceKeysInObj(obj[key], oldKey, newKey);
+    }
+
+    if (key === oldKey) {
+      obj[newKey] = obj[key];
+      delete obj[key];
+    }
+  }
+
+  return obj;
 };
 
 // 25. Get the first n Fibonacci numbers. In the Fibonacci sequence, each subsequent
